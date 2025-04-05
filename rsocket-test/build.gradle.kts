@@ -52,6 +52,12 @@ kotlin {
         }
         jvmMain.dependencies {
             api(kotlin("test-junit"))
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+            runtimeOnly("ch.qos.logback:logback-classic:1.3.15")
+            implementation(projects.rsocketTransportKtorWebsocketClient)
+            implementation(projects.rsocketTransportKtorWebsocketServer)
+            implementation("io.ktor:ktor-client-cio:3.1.2")
+            implementation("io.ktor:ktor-server-cio:3.1.2")
         }
         jsMain.dependencies {
             api(kotlin("test-js"))

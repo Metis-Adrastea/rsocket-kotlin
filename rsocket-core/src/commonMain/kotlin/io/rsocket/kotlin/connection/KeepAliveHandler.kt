@@ -37,12 +37,16 @@ internal class KeepAliveHandler(
     init {
         // this could be moved to a function like `run` or `start`
         connectionScope.launch {
+            launch {
+                while (true) {
+                    delay(keepAlive.intervalMillis.toLong())
+                    outbound.sendKeepAlive(true, EmptyBuffer, 0)
+                }
+            }
             while (true) {
                 delay(keepAlive.intervalMillis.toLong())
                 if (currentDelayMillis() - lastMark.value >= keepAlive.maxLifetimeMillis)
                     throw RSocketError.ConnectionError("No keep-alive for ${keepAlive.maxLifetimeMillis} ms")
-
-                outbound.sendKeepAlive(true, EmptyBuffer, 0)
             }
         }
     }
